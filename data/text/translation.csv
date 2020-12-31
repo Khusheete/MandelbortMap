@@ -3,3 +3,8 @@ SETTINGS	Settings	Options
 MANDELBROT	Mandelbrot Set	Ensemble de Mandelbrot
 JULIA	Julia Set	Ensemble de Julia
 LANG	Language	Langue
+COLOR_GRADIENT	Color gradient	Dégradé
+CLASSIC	Classic	Classique
+PURPLE_GRADIENT	Purple	Violet
+GRAYSCALE	Grayscale	Niveaux de gris
+BLUE_GRADIENT	Blue	Bleu

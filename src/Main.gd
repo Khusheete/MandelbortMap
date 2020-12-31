@@ -100,3 +100,18 @@ func _on_LanguageSelect_ready():
 	var os_lang: String = OS.get_locale()
 	TranslationServer.set_locale(os_lang)
 	translate_tabs()
+func set_gradient(gradient: Gradient):
+	mandelbrot.color_gradient = gradient
+	julia.color_gradient = gradient
+
+func _on_GradientSelect_item_selected(index: int):
+	var gradient_select: OptionButton = $HPanel/VPanel/UI/Separator/Tabs/Settings/ColorGradient/GradientSelect
+	match gradient_select.get_item_text(index):
+		"PURPLE_GRADIENT":
+			set_gradient(preload("res://data/gradients/purple.tres"))
+		"CLASSIC":
+			set_gradient(preload("res://data/gradients/uf.tres"))
+		"GRAYSCALE":
+			set_gradient(preload("res://data/gradients/normal.tres"))
+		"BLUE_GRADIENT":
+			set_gradient(preload("res://data/gradients/blue.tres"))

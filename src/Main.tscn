@@ -244,6 +244,26 @@ text = "English"
 items = [ "English", null, false, 0, null, "Français", null, false, 1, null ]
 selected = 0
 
+[node name="ColorGradient" type="HBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs/Settings"]
+margin_top = 26.0
+margin_right = 251.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="ColorGrad" type="Label" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/ColorGradient"]
+margin_right = 125.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "COLOR_GRADIENT"
+
+[node name="GradientSelect" type="OptionButton" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/ColorGradient"]
+margin_left = 129.0
+margin_right = 251.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "CLASSIC"
+items = [ "CLASSIC", null, false, 0, null, "PURPLE_GRADIENT", null, false, 1, null, "GRAYSCALE", null, false, 2, null, "BLUE_GRADIENT", null, false, 3, null ]
+selected = 0
 [node name="Mandelbrot" type="VBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs"]
 visible = false
 anchor_right = 1.0
@@ -327,4 +347,5 @@ __meta__ = {
 [connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Language/LanguageSelect" to="." method="_on_LanguageSelect_item_selected"]
 [connection signal="ready" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Language/LanguageSelect" to="." method="_on_LanguageSelect_ready"]
 [connection signal="pressed" from="HPanel/VPanel/UI/Separator/HelpSection/Help" to="." method="_on_Help_pressed"]
+[connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/ColorGradient/GradientSelect" to="." method="_on_GradientSelect_item_selected"]
 [connection signal="gui_input" from="HPanel/VPanel/Julia" to="." method="_on_Julia_gui_input"]
