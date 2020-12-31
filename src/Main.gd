@@ -9,7 +9,11 @@ onready var julia: Node = $HPanel/VPanel/Julia
 var state: bool = true
 
 func _ready():
-	pass
+	var julia_set: Vector2 = julia.render_material.get_shader_param("julia_set")
+	var real_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Real
+	var img_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Imaginary
+	real_part.value = julia_set.x
+	img_part.value = julia_set.y
 
 
 func _input(event: InputEvent):
@@ -36,8 +40,13 @@ func _input(event: InputEvent):
 func _on_Mandelbrot_gui_input(event):
 	if event is InputEventMouse:
 		if Input.is_action_pressed("left_mouse_click"):
+			#change the julia fractal
 			var mpos: Vector2 = mandelbrot.transform_pos(get_global_mouse_position())
 			julia.render_material.set_shader_param("julia_set", mpos)
+			var real_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Real
+			var img_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Imaginary
+			real_part.value = mpos.x
+			img_part.value = mpos.y
 	if event is InputEventMouseMotion:
 		if Input.is_action_pressed("middle_mouse_click"):
 			var mpos_1: Vector2 = mandelbrot.transform_pos(get_global_mouse_position())
@@ -135,3 +144,10 @@ func _on_GradientSelect_item_selected(index: int):
 			set_gradient(preload("res://data/gradients/normal.tres"))
 		"BLUE_GRADIENT":
 			set_gradient(preload("res://data/gradients/blue.tres"))
+
+
+func _on_resolution_changed(_value: int):
+	var width: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution/Width
+	var height: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution/Height
+	mandelbrot.resolution = Vector2(width.value, height.value)
+	julia.resolution = Vector2(width.value, height.value)

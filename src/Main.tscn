@@ -264,6 +264,41 @@ size_flags_horizontal = 3
 text = "CLASSIC"
 items = [ "CLASSIC", null, false, 0, null, "PURPLE_GRADIENT", null, false, 1, null, "GRAYSCALE", null, false, 2, null, "BLUE_GRADIENT", null, false, 3, null ]
 selected = 0
+
+[node name="Resolution" type="HBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs/Settings"]
+margin_top = 52.0
+margin_right = 251.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Resolution" type="Label" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution"]
+margin_right = 91.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "RESOLUTION"
+
+[node name="Width" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution"]
+margin_left = 95.0
+margin_right = 171.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+min_value = 512.0
+max_value = 4096.0
+value = 1024.0
+rounded = true
+
+[node name="Height" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution"]
+margin_left = 175.0
+margin_right = 251.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+min_value = 512.0
+max_value = 4096.0
+value = 1024.0
+rounded = true
+
 [node name="Mandelbrot" type="VBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs"]
 visible = false
 anchor_right = 1.0
@@ -286,6 +321,43 @@ __meta__ = {
 }
 
 [node name="HelpSection" type="Control" parent="HPanel/VPanel/UI/Separator"]
+[node name="Set" type="HBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs/Julia"]
+margin_right = 218.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Set" type="Label" parent="HPanel/VPanel/UI/Separator/Tabs/Julia/Set"]
+margin_top = 5.0
+margin_right = 62.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "JULIA_SET"
+
+[node name="Real" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Julia/Set"]
+margin_left = 66.0
+margin_right = 140.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+min_value = -2.0
+max_value = 2.0
+step = 0.001
+allow_greater = true
+allow_lesser = true
+
+[node name="Imaginary" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Julia/Set"]
+margin_left = 144.0
+margin_right = 218.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+min_value = -2.0
+max_value = 2.0
+step = 0.001
+allow_greater = true
+allow_lesser = true
+suffix = "i"
+
 margin_top = 365.0
 margin_right = 226.0
 margin_bottom = 384.0
