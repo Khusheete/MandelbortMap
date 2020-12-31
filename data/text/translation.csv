@@ -14,3 +14,4 @@ PURPLE_GRADIENT	Purple	Violet
 GRAYSCALE	Grayscale	Niveaux de gris
 BLUE_GRADIENT	Blue	Bleu
 RESOLUTION	Resolution	Résolution
+MOUSE_POS	Mouse: ({x}; {y})	Sourie: ({x}; {y})

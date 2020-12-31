@@ -9,6 +9,11 @@ onready var julia: Node = $HPanel/VPanel/Julia
 var state: bool = true
 
 func _ready():
+	var os_lang: String = OS.get_locale()
+	TranslationServer.set_locale(os_lang)
+	
+	translate_tabs()
+	
 	var julia_set: Vector2 = julia.render_material.get_shader_param("julia_set")
 	var real_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Real
 	var img_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Imaginary
@@ -48,40 +53,51 @@ func _on_Mandelbrot_gui_input(event):
 			real_part.value = mpos.x
 			img_part.value = mpos.y
 	if event is InputEventMouseMotion:
-		if Input.is_action_pressed("middle_mouse_click"):
-			var mpos_1: Vector2 = mandelbrot.transform_pos(get_global_mouse_position())
+		#update mouse position text
+		var mpos: Vector2 = mandelbrot.transform_pos(get_global_mouse_position())
+		var position: Label = $HPanel/VPanel/UI/Separator/Footer/MousePos
+		var posStr: String = tr("MOUSE_POS")
+		position.text = posStr.format({"x": mpos.x, "y": mpos.y})
+		
+		
+		if Input.is_action_pressed("middle_mouse_click"): #move around the figure
 			var mpos_0: Vector2 = mandelbrot.transform_pos(get_global_mouse_position() - event.relative)
-			var dmpos: Vector2 = mpos_1 - mpos_0
+			var dmpos: Vector2 = mpos - mpos_0
 			mandelbrot.plane_center -= dmpos
 	if event.is_action_pressed("scroll_up"):
+		#zoom in
 		var mpos: Vector2 = mandelbrot.transform_pos(get_global_mouse_position())
 		mandelbrot.plane_center = mandelbrot.plane_center.linear_interpolate(mpos, 0.25)
 		mandelbrot.plane_min_size *= 0.9
 	if event.is_action_pressed("scroll_down"):
+		#zoom out
 		mandelbrot.plane_min_size *= 1.1
 
 
 func _on_Julia_gui_input(event):
 	if event.is_action_pressed("scroll_up"):
+		#zoom in
 		var mpos: Vector2 = julia.transform_pos(get_global_mouse_position())
 		julia.plane_center = julia.plane_center.linear_interpolate(mpos, 0.25)
 		julia.plane_min_size *= 0.9
 	if event.is_action_pressed("scroll_down"):
+		#zoom out
 		julia.plane_min_size *= 1.1
 	if event is InputEventMouseMotion:
-		if Input.is_action_pressed("middle_mouse_click"):
-			var mpos_1: Vector2 = julia.transform_pos(get_global_mouse_position())
+		#update mouse position text
+		var mpos: Vector2 = julia.transform_pos(get_global_mouse_position())
+		var position: Label = $HPanel/VPanel/UI/Separator/Footer/MousePos
+		var posStr: String = tr("MOUSE_POS")
+		position.text = posStr.format({"x": mpos.x, "y": mpos.y})
+		
+		if Input.is_action_pressed("middle_mouse_click"): #move around the figure
 			var mpos_0: Vector2 = julia.transform_pos(get_global_mouse_position() - event.relative)
-			var dmpos: Vector2 = mpos_1 - mpos_0
+			var dmpos: Vector2 = mpos - mpos_0
 			julia.plane_center -= dmpos
 
 
 func _on_Help_pressed():
 	$HelpDialog.popup_centered()
-
-
-func _on_Tabs_ready():
-	translate_tabs()
 
 
 func translate_tabs():
@@ -125,10 +141,6 @@ func _on_julia_set_changed(_value: float):
 	var img_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Imaginary
 	julia.render_material.set_shader_param("julia_set", Vector2(real_part.value, img_part.value))
 
-func _on_LanguageSelect_ready():
-	var os_lang: String = OS.get_locale()
-	TranslationServer.set_locale(os_lang)
-	translate_tabs()
 func set_gradient(gradient: Gradient):
 	mandelbrot.color_gradient = gradient
 	julia.color_gradient = gradient

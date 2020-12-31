@@ -76,7 +76,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=7]
 shader = SubResource( 6 )
-shader_param/bounds = Plane( -2.48103, -1.5, 1.48103, 1.5 )
+shader_param/bounds = Plane( -2.41121, -1.5, 1.41121, 1.5 )
 shader_param/max_iter = 100
 
 [sub_resource type="StyleBoxFlat" id=8]
@@ -137,7 +137,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=13]
 shader = SubResource( 12 )
-shader_param/bounds = Plane( -2.35417, -2, 2.35417, 2 )
+shader_param/bounds = Plane( -2.67708, -2, 2.67708, 2 )
 shader_param/julia_set = Vector2( -0.618034, 0 )
 shader_param/power = 2.0
 shader_param/max_iter = 100
@@ -175,7 +175,7 @@ __meta__ = {
 
 [node name="Mandelbrot" parent="HPanel" instance=ExtResource( 1 )]
 material = SubResource( 5 )
-margin_right = 766.0
+margin_right = 739.0
 margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -183,15 +183,15 @@ render_material = SubResource( 7 )
 color_gradient = ExtResource( 2 )
 
 [node name="VPanel" type="VBoxContainer" parent="HPanel"]
-margin_left = 778.0
+margin_left = 747.0
 margin_right = 1004.0
 margin_bottom = 580.0
 rect_min_size = Vector2( 200, 200 )
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
+size_flags_stretch_ratio = 0.35
 
 [node name="UI" type="Panel" parent="HPanel/VPanel"]
-margin_right = 226.0
+margin_right = 257.0
 margin_bottom = 384.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
@@ -205,7 +205,7 @@ __meta__ = {
 }
 
 [node name="Tabs" type="TabContainer" parent="HPanel/VPanel/UI/Separator"]
-margin_right = 226.0
+margin_right = 261.0
 margin_bottom = 361.0
 size_flags_vertical = 3
 custom_constants/hseparation = 20
@@ -215,30 +215,29 @@ tab_align = 0
 [node name="Settings" type="VBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 5.0
+margin_top = 29.0
+margin_right = -5.0
+margin_bottom = -5.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Language" type="HBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs/Settings"]
-margin_right = 218.0
-margin_bottom = 20.0
+margin_right = 251.0
+margin_bottom = 22.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="Language" type="Label" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Language"]
-margin_top = 3.0
-margin_right = 107.0
-margin_bottom = 17.0
+margin_right = 123.0
+margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "LANG"
 
 [node name="LanguageSelect" type="OptionButton" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Language"]
-margin_left = 111.0
-margin_right = 218.0
-margin_bottom = 20.0
+margin_left = 127.0
+margin_right = 251.0
+margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "English"
 items = [ "English", null, false, 0, null, "Français", null, false, 1, null ]
@@ -303,10 +302,10 @@ rounded = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 5.0
+margin_top = 29.0
+margin_right = -5.0
+margin_bottom = -5.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -315,12 +314,14 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 24.0
+margin_left = 5.0
+margin_top = 29.0
+margin_right = -5.0
+margin_bottom = -5.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HelpSection" type="Control" parent="HPanel/VPanel/UI/Separator"]
 [node name="Set" type="HBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs/Julia"]
 margin_right = 218.0
 margin_bottom = 24.0
@@ -358,11 +359,20 @@ allow_greater = true
 allow_lesser = true
 suffix = "i"
 
+[node name="Footer" type="Control" parent="HPanel/VPanel/UI/Separator"]
 margin_top = 365.0
-margin_right = 226.0
+margin_right = 261.0
 margin_bottom = 384.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.05
+
+[node name="MousePos" type="Label" parent="HPanel/VPanel/UI/Separator/Footer"]
+margin_top = -2.0
+margin_right = 8.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Help" type="Button" parent="HPanel/VPanel/UI/Separator/Footer"]
 anchor_left = 1.0
@@ -383,7 +393,7 @@ __meta__ = {
 [node name="Julia" parent="HPanel/VPanel" instance=ExtResource( 1 )]
 material = SubResource( 11 )
 margin_top = 388.0
-margin_right = 226.0
+margin_right = 257.0
 margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -415,11 +425,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="gui_input" from="HPanel/Mandelbrot" to="." method="_on_Mandelbrot_gui_input"]
-[connection signal="ready" from="HPanel/VPanel/UI/Separator/Tabs" to="." method="_on_Tabs_ready"]
 [connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Language/LanguageSelect" to="." method="_on_LanguageSelect_item_selected"]
-[connection signal="ready" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Language/LanguageSelect" to="." method="_on_LanguageSelect_ready"]
-[connection signal="pressed" from="HPanel/VPanel/UI/Separator/HelpSection/Help" to="." method="_on_Help_pressed"]
 [connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/ColorGradient/GradientSelect" to="." method="_on_GradientSelect_item_selected"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution/Width" to="." method="_on_resolution_changed"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution/Height" to="." method="_on_resolution_changed"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Real" to="." method="_on_julia_set_changed"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Imaginary" to="." method="_on_julia_set_changed"]
 [connection signal="pressed" from="HPanel/VPanel/UI/Separator/Footer/Help" to="." method="_on_Help_pressed"]
 [connection signal="gui_input" from="HPanel/VPanel/Julia" to="." method="_on_Julia_gui_input"]
 [connection signal="about_to_show" from="HelpDialog" to="." method="_on_HelpDialog_about_to_show"]
