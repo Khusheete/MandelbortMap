@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/Plot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/gradients/uf.tres" type="Gradient" id=2]
@@ -76,11 +76,11 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=7]
 shader = SubResource( 6 )
-shader_param/bounds = Plane( -2.53898, -1.5, 1.53898, 1.5 )
+shader_param/bounds = Plane( -2.48103, -1.5, 1.48103, 1.5 )
 shader_param/max_iter = 100
 
 [sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0.2, 0.227451, 0.309804, 1 )
+bg_color = Color( 0.12549, 0.141176, 0.192157, 1 )
 
 [sub_resource type="GradientTexture" id=9]
 resource_local_to_scene = true
@@ -137,10 +137,20 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=13]
 shader = SubResource( 12 )
-shader_param/bounds = Plane( -2.04082, -2, 2.04082, 2 )
+shader_param/bounds = Plane( -2.35417, -2, 2.35417, 2 )
 shader_param/julia_set = Vector2( -0.618034, 0 )
 shader_param/power = 2.0
 shader_param/max_iter = 100
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.12549, 0.141176, 0.192157, 1 )
+border_width_top = 20
+border_color = Color( 0.419608, 0.243137, 0.678431, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 20.0
 
 [node name="Main" type="Panel"]
 anchor_right = 1.0
@@ -155,57 +165,166 @@ __meta__ = {
 [node name="HPanel" type="HSplitContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Mandelbrot" parent="HPanel" instance=ExtResource( 1 )]
 material = SubResource( 5 )
-margin_right = 802.0
-margin_bottom = 590.0
+margin_right = 766.0
+margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 render_material = SubResource( 7 )
 color_gradient = ExtResource( 2 )
 
 [node name="VPanel" type="VBoxContainer" parent="HPanel"]
-margin_left = 814.0
-margin_right = 1014.0
-margin_bottom = 590.0
+margin_left = 778.0
+margin_right = 1004.0
+margin_bottom = 580.0
 rect_min_size = Vector2( 200, 200 )
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.25
+size_flags_stretch_ratio = 0.3
 
 [node name="UI" type="Panel" parent="HPanel/VPanel"]
-margin_right = 200.0
-margin_bottom = 390.0
+margin_right = 226.0
+margin_bottom = 384.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 custom_styles/panel = SubResource( 8 )
 
-[node name="Sections" type="VBoxContainer" parent="HPanel/VPanel/UI"]
-margin_top = 4.0
-margin_right = 200.0
-margin_bottom = 398.0
-size_flags_stretch_ratio = 2.0
+[node name="Separator" type="VBoxContainer" parent="HPanel/VPanel/UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tabs" type="TabContainer" parent="HPanel/VPanel/UI/Separator"]
+margin_right = 226.0
+margin_bottom = 361.0
+size_flags_vertical = 3
+custom_constants/hseparation = 20
+custom_constants/side_margin = 0
+tab_align = 0
+
+[node name="Settings" type="VBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Language" type="HBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs/Settings"]
+margin_right = 218.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Language" type="Label" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Language"]
+margin_top = 3.0
+margin_right = 107.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "LANG"
+
+[node name="LanguageSelect" type="OptionButton" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Language"]
+margin_left = 111.0
+margin_right = 218.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "English"
+items = [ "English", null, false, 0, null, "Français", null, false, 1, null ]
+selected = 0
+
+[node name="Mandelbrot" type="VBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Julia" type="VBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HelpSection" type="Control" parent="HPanel/VPanel/UI/Separator"]
+margin_top = 365.0
+margin_right = 226.0
+margin_bottom = 384.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="Help" type="Button" parent="HPanel/VPanel/UI/Separator/HelpSection"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -10.0
+margin_right = -10.0
+margin_bottom = 10.0
+shortcut_in_tooltip = false
+text = "?"
+flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Julia" parent="HPanel/VPanel" instance=ExtResource( 1 )]
 material = SubResource( 11 )
-margin_top = 394.0
-margin_right = 200.0
-margin_bottom = 590.0
+margin_top = 388.0
+margin_right = 226.0
+margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 render_material = SubResource( 13 )
 plane_center = Vector2( 0, 0 )
 plane_min_size = 2.0
 color_gradient = ExtResource( 2 )
+
+[node name="HelpDialog" type="WindowDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -150.0
+margin_right = 200.0
+margin_bottom = 150.0
+custom_styles/panel = SubResource( 14 )
+window_title = "Help"
+resizable = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Help" type="RichTextLabel" parent="HelpDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="gui_input" from="HPanel/Mandelbrot" to="." method="_on_Mandelbrot_gui_input"]
+[connection signal="ready" from="HPanel/VPanel/UI/Separator/Tabs" to="." method="_on_Tabs_ready"]
+[connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Language/LanguageSelect" to="." method="_on_LanguageSelect_item_selected"]
+[connection signal="ready" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Language/LanguageSelect" to="." method="_on_LanguageSelect_ready"]
+[connection signal="pressed" from="HPanel/VPanel/UI/Separator/HelpSection/Help" to="." method="_on_Help_pressed"]
 [connection signal="gui_input" from="HPanel/VPanel/Julia" to="." method="_on_Julia_gui_input"]

@@ -29,6 +29,8 @@ func _input(event: InputEvent):
 			$HPanel/VPanel.add_child(julia)
 
 		state = !state
+	elif Input.is_action_just_pressed("help"):
+		$HelpDialog.popup_centered()
 
 
 func _on_Mandelbrot_gui_input(event):
@@ -63,3 +65,38 @@ func _on_Julia_gui_input(event):
 			var mpos_0: Vector2 = julia.transform_pos(get_global_mouse_position() - event.relative)
 			var dmpos: Vector2 = mpos_1 - mpos_0
 			julia.plane_center -= dmpos
+
+
+func _on_Help_pressed():
+	$HelpDialog.popup_centered()
+
+
+func _on_Tabs_ready():
+	translate_tabs()
+
+
+func translate_tabs():
+	var tabs: TabContainer = $HPanel/VPanel/UI/Separator/Tabs
+	var tkey: Array = ["SETTINGS", "MANDELBROT", "JULIA"]
+	for i in range(tabs.get_tab_count()):
+		tabs.set_tab_title(i, tr(tkey[i]))
+
+
+
+func _on_LanguageSelect_item_selected(index: int):
+	var lang_select: OptionButton = $HPanel/VPanel/UI/Separator/Tabs/Settings/Language/LanguageSelect
+	var lang: String = lang_select.get_item_text(index)
+	
+	match lang:
+		"Français":
+			TranslationServer.set_locale("fr")
+		"English":
+			TranslationServer.set_locale("en")
+	
+	translate_tabs()
+
+
+func _on_LanguageSelect_ready():
+	var os_lang: String = OS.get_locale()
+	TranslationServer.set_locale(os_lang)
+	translate_tabs()
