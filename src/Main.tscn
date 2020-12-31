@@ -1,0 +1,211 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://src/Plot.tscn" type="PackedScene" id=1]
+[ext_resource path="res://data/gradients/uf.tres" type="Gradient" id=2]
+[ext_resource path="res://src/Main.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.12549, 0.141176, 0.192157, 1 )
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+uniform sampler2D tex: hint_black;
+uniform sampler2D color_gradient: hint_black;
+
+void fragment() {
+	vec4 input_color = texture(tex, UV);
+	
+	if (input_color == vec4(0.0, 0.0, 0.0, 1.0)) {
+		COLOR = input_color;
+	} else {
+		//the grayscale color is r g or b since they should all be equal
+		float grayscale = input_color.r;
+		COLOR = texture(color_gradient, vec2(grayscale, 0.0));
+	}
+}"
+
+[sub_resource type="GradientTexture" id=3]
+resource_local_to_scene = true
+gradient = ExtResource( 2 )
+
+[sub_resource type="ViewportTexture" id=4]
+
+[sub_resource type="ShaderMaterial" id=5]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/tex = SubResource( 4 )
+shader_param/color_gradient = SubResource( 3 )
+
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform vec4 bounds = vec4(-2.0, -1.25, 0.5, 1.25);
+uniform int max_iter = 100;
+
+vec2 cmult(vec2 v0, vec2 v1) {
+	return vec2(v0.x * v1.x - v0.y * v1.y, v0.x * v1.y + v0.y * v1.x);
+}
+
+//returns the number of iterations until it is outside of the mandelbrot set
+//or -1 if the point is inside
+int mandelbrot(vec2 c) {
+	vec2 z = vec2(0.0);
+	for (int i = 0; i < max_iter; i++) {
+		z = cmult(z, z) + c;
+		if (length(z) >= 2.0) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+void fragment() {
+	vec2 c = mix(bounds.xy, bounds.zw, UV);
+	
+	int mbt = mandelbrot(c);
+	
+	if (mbt == -1) {
+		COLOR = vec4(0.0, 0.0, 0.0, 1.0);
+	} else {
+		float scale = float(max_iter - mbt) / float(max_iter);
+		COLOR = vec4(vec3(scale), 1.0);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/bounds = Plane( -2.53898, -1.5, 1.53898, 1.5 )
+shader_param/max_iter = 100
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.2, 0.227451, 0.309804, 1 )
+
+[sub_resource type="GradientTexture" id=9]
+resource_local_to_scene = true
+gradient = ExtResource( 2 )
+
+[sub_resource type="ViewportTexture" id=10]
+
+[sub_resource type="ShaderMaterial" id=11]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/tex = SubResource( 10 )
+shader_param/color_gradient = SubResource( 9 )
+
+[sub_resource type="Shader" id=12]
+code = "shader_type canvas_item;
+
+uniform vec4 bounds = vec4(-2.0, 2.0, -2.0, 2.0);
+uniform vec2 julia_set = vec2(-0.6180339887, 0.0);
+uniform float power = 2.0;
+uniform int max_iter = 100;
+
+
+//raise a complex number to a power p
+vec2 cpow(vec2 c, float p) {
+	float len = pow(length(c), p);
+	float a = atan(c.y, c.x) * p;
+	
+	return len * vec2(cos(a), sin(a));
+}
+
+int julia(vec2 c) {
+	vec2 z = c;
+	for (int i = 0; i < max_iter; i++) {
+		z = cpow(z, power) + julia_set;
+		if (length(z) >= 2.0) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+void fragment() {
+	vec2 c = mix(bounds.xy, bounds.zw, UV);
+	
+	int iter = julia(c);
+	
+	if (iter == -1) {
+		COLOR = vec4(0.0, 0.0, 0.0, 1.0);
+	} else {
+		float scale = float(max_iter - iter) / float(max_iter);
+		COLOR = vec4(vec3(scale), 1.0);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=13]
+shader = SubResource( 12 )
+shader_param/bounds = Plane( -2.04082, -2, 2.04082, 2 )
+shader_param/julia_set = Vector2( -0.618034, 0 )
+shader_param/power = 2.0
+shader_param/max_iter = 100
+
+[node name="Main" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HPanel" type="HSplitContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mandelbrot" parent="HPanel" instance=ExtResource( 1 )]
+material = SubResource( 5 )
+margin_right = 802.0
+margin_bottom = 590.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+render_material = SubResource( 7 )
+color_gradient = ExtResource( 2 )
+
+[node name="VPanel" type="VBoxContainer" parent="HPanel"]
+margin_left = 814.0
+margin_right = 1014.0
+margin_bottom = 590.0
+rect_min_size = Vector2( 200, 200 )
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="UI" type="Panel" parent="HPanel/VPanel"]
+margin_right = 200.0
+margin_bottom = 390.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+custom_styles/panel = SubResource( 8 )
+
+[node name="Sections" type="VBoxContainer" parent="HPanel/VPanel/UI"]
+margin_top = 4.0
+margin_right = 200.0
+margin_bottom = 398.0
+size_flags_stretch_ratio = 2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Julia" parent="HPanel/VPanel" instance=ExtResource( 1 )]
+material = SubResource( 11 )
+margin_top = 394.0
+margin_right = 200.0
+margin_bottom = 590.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+render_material = SubResource( 13 )
+plane_center = Vector2( 0, 0 )
+plane_min_size = 2.0
+color_gradient = ExtResource( 2 )
+[connection signal="gui_input" from="HPanel/Mandelbrot" to="." method="_on_Mandelbrot_gui_input"]
+[connection signal="gui_input" from="HPanel/VPanel/Julia" to="." method="_on_Julia_gui_input"]

@@ -1,0 +1,49 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform highp vec4 bounds = vec4(-2.0, 2.0, -2.0, 2.0);
+uniform highp vec2 julia_set = vec2(-0.6180339887, 0.0);
+uniform float power = 2.0;
+uniform int max_iter = 100;
+
+
+//raise a complex number to a power p
+vec2 cpow(highp vec2 c, highp float p) {
+	highp float len = pow(length(c), p);
+	highp float a = atan(c.y, c.x) * p;
+	
+	return len * vec2(cos(a), sin(a));
+}
+
+int julia(highp vec2 c) {
+	highp vec2 z = c;
+	for (int i = 0; i < max_iter; i++) {
+		z = cpow(z, power) + julia_set;
+		if (length(z) >= 2.0) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+void fragment() {
+	highp vec2 c = mix(bounds.xy, bounds.zw, UV);
+	
+	int iter = julia(c);
+	
+	if (iter == -1) {
+		COLOR = vec4(0.0, 0.0, 0.0, 1.0);
+	} else {
+		highp float scale = float(max_iter - iter) / float(max_iter);
+		COLOR = vec4(vec3(scale), 1.0);
+	}
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/bounds = Plane( -2, 2, -2, 2 )
+shader_param/julia_set = Vector2( -0.618034, 0 )
+shader_param/power = 2.0
+shader_param/max_iter = 100

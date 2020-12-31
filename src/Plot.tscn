@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://data/gradients/normal.tres" type="Gradient" id=1]
+[ext_resource path="res://src/Plot.gd" type="Script" id=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform sampler2D tex: hint_black;
+uniform sampler2D color_gradient: hint_black;
+
+void fragment() {
+	vec4 input_color = texture(tex, UV);
+	
+	if (input_color == vec4(0.0, 0.0, 0.0, 1.0)) {
+		COLOR = input_color;
+	} else {
+		//the grayscale color is r g or b since they should all be equal
+		float grayscale = input_color.r;
+		COLOR = texture(color_gradient, vec2(grayscale, 0.0));
+	}
+}"
+
+[sub_resource type="GradientTexture" id=2]
+resource_local_to_scene = true
+gradient = ExtResource( 1 )
+
+[sub_resource type="ViewportTexture" id=9]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/tex = SubResource( 9 )
+shader_param/color_gradient = SubResource( 2 )
+
+[node name="Plot" type="ColorRect"]
+material = SubResource( 8 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 1024, 1024 )
+own_world = true
+handle_input_locally = false
+msaa = 3
+usage = 0
+render_target_update_mode = 3
+
+[node name="Figure" type="ColorRect" parent="Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = 40.0
