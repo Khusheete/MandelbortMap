@@ -19,6 +19,10 @@ config/name="MandelbrotMap"
 run/main_scene="res://src/Main.tscn"
 config/icon="res://icon.png"
 
+[gui]
+
+theme/custom="res://data/Theme.tres"
+
 [input]
 
 ui_accept={
