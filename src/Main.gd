@@ -95,6 +95,26 @@ func _on_LanguageSelect_item_selected(index: int):
 	
 	translate_tabs()
 
+#this is the help template
+const HELP: String = \
+"""{zoom}
+
+{move}
+
+{cview}
+
+{cjulia}
+"""
+
+func _on_HelpDialog_about_to_show():
+	var help: RichTextLabel = $HelpDialog/Help
+	help.text = HELP.format({zoom = tr("HELP_ZOOM"), move = tr("HELP_MOVE_AROUND"), cview = tr("HELP_CHANGE_VIEW"), cjulia = tr("HELP_CHANGE_JULIA")})
+
+
+func _on_julia_set_changed(_value: float):
+	var real_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Real
+	var img_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Imaginary
+	julia.render_material.set_shader_param("julia_set", Vector2(real_part.value, img_part.value))
 
 func _on_LanguageSelect_ready():
 	var os_lang: String = OS.get_locale()

@@ -292,7 +292,7 @@ margin_bottom = 384.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.05
 
-[node name="Help" type="Button" parent="HPanel/VPanel/UI/Separator/HelpSection"]
+[node name="Help" type="Button" parent="HPanel/VPanel/UI/Separator/Footer"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -348,4 +348,6 @@ __meta__ = {
 [connection signal="ready" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Language/LanguageSelect" to="." method="_on_LanguageSelect_ready"]
 [connection signal="pressed" from="HPanel/VPanel/UI/Separator/HelpSection/Help" to="." method="_on_Help_pressed"]
 [connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/ColorGradient/GradientSelect" to="." method="_on_GradientSelect_item_selected"]
+[connection signal="pressed" from="HPanel/VPanel/UI/Separator/Footer/Help" to="." method="_on_Help_pressed"]
 [connection signal="gui_input" from="HPanel/VPanel/Julia" to="." method="_on_Julia_gui_input"]
+[connection signal="about_to_show" from="HelpDialog" to="." method="_on_HelpDialog_about_to_show"]
