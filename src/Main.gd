@@ -14,11 +14,30 @@ func _ready():
 	
 	translate_tabs()
 	
+	update_values()
+
+#updates the values in the UI
+func update_values():
+	#changes the julia set
 	var julia_set: Vector2 = julia.render_material.get_shader_param("julia_set")
 	var real_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Real
 	var img_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Imaginary
 	real_part.value = julia_set.x
 	img_part.value = julia_set.y
+	
+	#the julia's figure center
+	var julia_center: Vector2 = julia.plane_center
+	real_part = $HPanel/VPanel/UI/Separator/Tabs/Julia/Center/Real
+	img_part = $HPanel/VPanel/UI/Separator/Tabs/Julia/Center/Imaginary
+	real_part.value = julia_center.x
+	img_part.value = julia_center.y
+	
+	#the mandelbrot's figure center
+	var mandelbrot_center: Vector2 = mandelbrot.plane_center
+	real_part = $HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Real
+	img_part = $HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Imaginary
+	real_part.value = mandelbrot_center.x
+	img_part.value = mandelbrot_center.y
 
 
 func _input(event: InputEvent):
@@ -48,10 +67,7 @@ func _on_Mandelbrot_gui_input(event):
 			#change the julia fractal
 			var mpos: Vector2 = mandelbrot.transform_pos(get_global_mouse_position())
 			julia.render_material.set_shader_param("julia_set", mpos)
-			var real_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Real
-			var img_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Imaginary
-			real_part.value = mpos.x
-			img_part.value = mpos.y
+			update_values()
 	if event is InputEventMouseMotion:
 		#update mouse position text
 		var mpos: Vector2 = mandelbrot.transform_pos(get_global_mouse_position())
@@ -64,14 +80,17 @@ func _on_Mandelbrot_gui_input(event):
 			var mpos_0: Vector2 = mandelbrot.transform_pos(get_global_mouse_position() - event.relative)
 			var dmpos: Vector2 = mpos - mpos_0
 			mandelbrot.plane_center -= dmpos
+			update_values()
 	if event.is_action_pressed("scroll_up"):
 		#zoom in
 		var mpos: Vector2 = mandelbrot.transform_pos(get_global_mouse_position())
 		mandelbrot.plane_center = mandelbrot.plane_center.linear_interpolate(mpos, 0.25)
 		mandelbrot.plane_min_size *= 0.9
+		update_values()
 	if event.is_action_pressed("scroll_down"):
 		#zoom out
 		mandelbrot.plane_min_size *= 1.1
+		update_values()
 
 
 func _on_Julia_gui_input(event):
@@ -80,9 +99,11 @@ func _on_Julia_gui_input(event):
 		var mpos: Vector2 = julia.transform_pos(get_global_mouse_position())
 		julia.plane_center = julia.plane_center.linear_interpolate(mpos, 0.25)
 		julia.plane_min_size *= 0.9
+		update_values()
 	if event.is_action_pressed("scroll_down"):
 		#zoom out
 		julia.plane_min_size *= 1.1
+		update_values()
 	if event is InputEventMouseMotion:
 		#update mouse position text
 		var mpos: Vector2 = julia.transform_pos(get_global_mouse_position())
@@ -94,6 +115,7 @@ func _on_Julia_gui_input(event):
 			var mpos_0: Vector2 = julia.transform_pos(get_global_mouse_position() - event.relative)
 			var dmpos: Vector2 = mpos - mpos_0
 			julia.plane_center -= dmpos
+			update_values()
 
 
 func _on_Help_pressed():
@@ -163,3 +185,15 @@ func _on_resolution_changed(_value: int):
 	var height: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution/Height
 	mandelbrot.resolution = Vector2(width.value, height.value)
 	julia.resolution = Vector2(width.value, height.value)
+
+
+func _on_julia_center_value_changed(_value: float):
+	var real_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Center/Real
+	var img_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Julia/Center/Imaginary
+	julia.plane_center = Vector2(real_part.value, img_part.value)
+
+
+func _on_mandelbrot_center_value_changed(_value: float):
+	var real_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Real
+	var img_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Imaginary
+	mandelbrot.plane_center = Vector2(real_part.value, img_part.value)

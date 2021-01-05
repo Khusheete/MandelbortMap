@@ -214,7 +214,6 @@ custom_constants/side_margin = 0
 tab_align = 0
 
 [node name="Settings" type="VBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -300,7 +299,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Center" parent="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 251.0
+margin_bottom = 22.0
+label = "CENTER"
+
+[node name="Real" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center"]
+margin_left = 170.0
+margin_right = 251.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+step = 0.001
+allow_greater = true
+allow_lesser = true
+
+[node name="Imaginary" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center"]
+margin_left = 170.0
+margin_right = 251.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+step = 0.001
+allow_greater = true
+allow_lesser = true
+suffix = "i"
+
 [node name="Julia" type="VBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -311,8 +337,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Center" parent="HPanel/VPanel/UI/Separator/Tabs/Julia" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 251.0
+margin_bottom = 22.0
+label = "CENTER"
 
+[node name="Real" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Julia/Center"]
+margin_left = 85.0
+margin_right = 166.0
+margin_bottom = 22.0
 size_flags_horizontal = 3
+step = 0.001
+allow_greater = true
+allow_lesser = true
+
+[node name="Imaginary" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Julia/Center"]
+margin_left = 170.0
+margin_right = 251.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+step = 0.001
+allow_greater = true
+allow_lesser = true
+suffix = "i"
 
 [node name="Set" parent="HPanel/VPanel/UI/Separator/Tabs/Julia" instance=ExtResource( 4 )]
 anchor_right = 0.0
@@ -414,9 +463,11 @@ __meta__ = {
 }
 [connection signal="gui_input" from="HPanel/Mandelbrot" to="." method="_on_Mandelbrot_gui_input"]
 [connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Language/LanguageSelect" to="." method="_on_LanguageSelect_item_selected"]
-[connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Gradient/GradientSelect" to="." method="_on_GradientSelect_item_selected"]
-[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Settings/UiElement/Width" to="." method="_on_resolution_changed"]
-[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Settings/UiElement/Height" to="." method="_on_resolution_changed"]
+[connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/ColorGradient/GradientSelect" to="." method="_on_GradientSelect_item_selected"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution/Width" to="." method="_on_resolution_changed"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution/Height" to="." method="_on_resolution_changed"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Real" to="." method="_on_mandelbrot_center_value_changed"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Imaginary" to="." method="_on_mandelbrot_center_value_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Center/Real" to="." method="_on_julia_center_value_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Center/Imaginary" to="." method="_on_julia_center_value_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Real" to="." method="_on_julia_set_changed"]
