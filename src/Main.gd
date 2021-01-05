@@ -32,12 +32,18 @@ func update_values():
 	real_part.value = julia_center.x
 	img_part.value = julia_center.y
 	
+	#the julia's figure zoom
+	$HPanel/VPanel/UI/Separator/Tabs/Julia/Zoom/ZoomSelect.value = julia.plane_min_size
+	
 	#the mandelbrot's figure center
 	var mandelbrot_center: Vector2 = mandelbrot.plane_center
 	real_part = $HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Real
 	img_part = $HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Imaginary
 	real_part.value = mandelbrot_center.x
 	img_part.value = mandelbrot_center.y
+	
+	#the mandelbrot's figure zoom
+	$HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Zoom/ZoomSelect.value = mandelbrot.plane_min_size
 
 
 func _input(event: InputEvent):
@@ -86,10 +92,14 @@ func _on_Mandelbrot_gui_input(event):
 		var mpos: Vector2 = mandelbrot.transform_pos(get_global_mouse_position())
 		mandelbrot.plane_center = mandelbrot.plane_center.linear_interpolate(mpos, 0.25)
 		mandelbrot.plane_min_size *= 0.9
+		if mandelbrot.plane_min_size < 0.001:
+			mandelbrot.plane_min_size = 0.001
 		update_values()
 	if event.is_action_pressed("scroll_down"):
 		#zoom out
 		mandelbrot.plane_min_size *= 1.1
+		if mandelbrot.plane_min_size > 10:
+			mandelbrot.plane_min_size = 10
 		update_values()
 
 
@@ -99,10 +109,14 @@ func _on_Julia_gui_input(event):
 		var mpos: Vector2 = julia.transform_pos(get_global_mouse_position())
 		julia.plane_center = julia.plane_center.linear_interpolate(mpos, 0.25)
 		julia.plane_min_size *= 0.9
+		if mandelbrot.plane_min_size < 0.001:
+			mandelbrot.plane_min_size = 0.001
 		update_values()
 	if event.is_action_pressed("scroll_down"):
 		#zoom out
 		julia.plane_min_size *= 1.1
+		if mandelbrot.plane_min_size > 10:
+			mandelbrot.plane_min_size = 10
 		update_values()
 	if event is InputEventMouseMotion:
 		#update mouse position text
@@ -197,3 +211,11 @@ func _on_mandelbrot_center_value_changed(_value: float):
 	var real_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Real
 	var img_part: SpinBox = $HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Imaginary
 	mandelbrot.plane_center = Vector2(real_part.value, img_part.value)
+
+
+func _on_mandelbrot_zoom_changed(value: float):
+	mandelbrot.plane_min_size = value
+
+
+func _on_julia_zoom_changed(value: float):
+	julia.plane_min_size = value

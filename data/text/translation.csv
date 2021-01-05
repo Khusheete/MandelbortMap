@@ -16,3 +16,4 @@ BLUE_GRADIENT	Blue	Bleu
 RESOLUTION	Resolution	Résolution
 MOUSE_POS	Mouse: ({x}; {y})	Sourie: ({x}; {y})
 CENTER	Center	Centre
+MIN_ZOOM	Min side length	Taille min

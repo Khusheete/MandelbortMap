@@ -327,6 +327,19 @@ allow_greater = true
 allow_lesser = true
 suffix = "i"
 
+[node name="Zoom" parent="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot" instance=ExtResource( 4 )]
+label = "MIN_ZOOM"
+
+[node name="ZoomSelect" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Zoom"]
+margin_right = 76.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 10.0
+step = 0.001
+allow_greater = true
+allow_lesser = true
+
 [node name="Julia" type="VBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs"]
 visible = false
 anchor_right = 1.0
@@ -366,6 +379,19 @@ step = 0.001
 allow_greater = true
 allow_lesser = true
 suffix = "i"
+
+[node name="Zoom" parent="HPanel/VPanel/UI/Separator/Tabs/Julia" instance=ExtResource( 4 )]
+label = "MIN_ZOOM"
+
+[node name="ZoomSelect" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Julia/Zoom"]
+margin_right = 76.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 10.0
+step = 0.001
+allow_greater = true
+allow_lesser = true
 
 [node name="Set" parent="HPanel/VPanel/UI/Separator/Tabs/Julia" instance=ExtResource( 4 )]
 anchor_right = 0.0
@@ -472,8 +498,10 @@ __meta__ = {
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution/Height" to="." method="_on_resolution_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Real" to="." method="_on_mandelbrot_center_value_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Imaginary" to="." method="_on_mandelbrot_center_value_changed"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Zoom/ZoomSelect" to="." method="_on_mandelbrot_zoom_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Center/Real" to="." method="_on_julia_center_value_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Center/Imaginary" to="." method="_on_julia_center_value_changed"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Zoom/ZoomSelect" to="." method="_on_julia_zoom_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Real" to="." method="_on_julia_set_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Imaginary" to="." method="_on_julia_set_changed"]
 [connection signal="pressed" from="HPanel/VPanel/UI/Separator/Footer/Help" to="." method="_on_Help_pressed"]
