@@ -7,6 +7,7 @@ HELP_ZOOM	You can use the mouse scroll to zoom in and out	Vous pouvez zoomer sur
 HELP_MOVE_AROUND	You can use the middle click to move around	Vous pouvez changer la position de la figure avec le clic du milieu
 HELP_CHANGE_VIEW	By pressing tab you can change the main view (weather it is displaing the Mandelbrot set or the Julia set)	Vous pouvez changer la vue principale avec tab (entre l’ensemble de Mandelbrot et les ensemble de Julia)
 HELP_CHANGE_JULIA	By clicking on a point in the Mandelbrot set, you will change the Julia set to the one corresponding to the clicked point	En cliquant sur un point sur l’ensemble de Mandelbrot, vous pouvez changer l’ensemble de Julia affiché par celui correspondant à ce point
+HELP_COPY_POINT	You can copy to clipboard the point you are hovering with your mouse with Control+C	Vous pouvez copier dans le presse papiers le point sous le pointeur de votre souris avec Control+C
 JULIA_SET	Point	Point
 COLOR_GRADIENT	Color gradient	Dégradé
 CLASSIC	Classic	Classique

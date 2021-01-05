@@ -8,6 +8,8 @@ onready var julia: Node = $HPanel/VPanel/Julia
 # false - The julia set is on the main plot
 var state: bool = true
 
+var hovered_point: Vector2 = Vector2(0, 0)
+
 func _ready():
 	var os_lang: String = OS.get_locale()
 	TranslationServer.set_locale(os_lang)
@@ -65,6 +67,8 @@ func _input(event: InputEvent):
 		state = !state
 	elif Input.is_action_just_pressed("help"):
 		$HelpDialog.popup_centered()
+	elif Input.is_action_just_pressed("copy_point"):
+		OS.clipboard = "%s + %si" % [hovered_point.x, hovered_point.y]
 
 
 func _on_Mandelbrot_gui_input(event):
@@ -80,6 +84,7 @@ func _on_Mandelbrot_gui_input(event):
 		var position: Label = $HPanel/VPanel/UI/Separator/Footer/MousePos
 		var posStr: String = tr("MOUSE_POS")
 		position.text = posStr.format({"x": mpos.x, "y": mpos.y})
+		hovered_point = mpos
 		
 		
 		if Input.is_action_pressed("middle_mouse_click"): #move around the figure
@@ -124,6 +129,7 @@ func _on_Julia_gui_input(event):
 		var position: Label = $HPanel/VPanel/UI/Separator/Footer/MousePos
 		var posStr: String = tr("MOUSE_POS")
 		position.text = posStr.format({"x": mpos.x, "y": mpos.y})
+		hovered_point = mpos
 		
 		if Input.is_action_pressed("middle_mouse_click"): #move around the figure
 			var mpos_0: Vector2 = julia.transform_pos(get_global_mouse_position() - event.relative)
@@ -165,11 +171,13 @@ const HELP: String = \
 {cview}
 
 {cjulia}
+
+{clipboard}
 """
 
 func _on_HelpDialog_about_to_show():
 	var help: RichTextLabel = $HelpDialog/Help
-	help.text = HELP.format({zoom = tr("HELP_ZOOM"), move = tr("HELP_MOVE_AROUND"), cview = tr("HELP_CHANGE_VIEW"), cjulia = tr("HELP_CHANGE_JULIA")})
+	help.text = HELP.format({zoom = tr("HELP_ZOOM"), move = tr("HELP_MOVE_AROUND"), cview = tr("HELP_CHANGE_VIEW"), cjulia = tr("HELP_CHANGE_JULIA"), clipboard = tr("HELP_COPY_POINT")})
 
 
 func _on_julia_set_changed(_value: float):
