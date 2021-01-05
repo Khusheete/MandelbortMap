@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/Plot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/gradients/uf.tres" type="Gradient" id=2]
 [ext_resource path="res://src/Main.gd" type="Script" id=3]
+[ext_resource path="res://src/ui/UiElement.tscn" type="PackedScene" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.12549, 0.141176, 0.192157, 1 )
@@ -29,12 +30,12 @@ void fragment() {
 resource_local_to_scene = true
 gradient = ExtResource( 2 )
 
-[sub_resource type="ViewportTexture" id=4]
+[sub_resource type="ViewportTexture" id=15]
 
 [sub_resource type="ShaderMaterial" id=5]
 resource_local_to_scene = true
 shader = SubResource( 2 )
-shader_param/tex = SubResource( 4 )
+shader_param/tex = SubResource( 15 )
 shader_param/color_gradient = SubResource( 3 )
 
 [sub_resource type="Shader" id=6]
@@ -74,7 +75,7 @@ void fragment() {
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="ShaderMaterial" id=16]
 shader = SubResource( 6 )
 shader_param/bounds = Plane( -2.41121, -1.5, 1.41121, 1.5 )
 shader_param/max_iter = 100
@@ -86,12 +87,12 @@ bg_color = Color( 0.12549, 0.141176, 0.192157, 1 )
 resource_local_to_scene = true
 gradient = ExtResource( 2 )
 
-[sub_resource type="ViewportTexture" id=10]
+[sub_resource type="ViewportTexture" id=17]
 
 [sub_resource type="ShaderMaterial" id=11]
 resource_local_to_scene = true
 shader = SubResource( 2 )
-shader_param/tex = SubResource( 10 )
+shader_param/tex = SubResource( 17 )
 shader_param/color_gradient = SubResource( 9 )
 
 [sub_resource type="Shader" id=12]
@@ -135,7 +136,7 @@ void fragment() {
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id=13]
+[sub_resource type="ShaderMaterial" id=18]
 shader = SubResource( 12 )
 shader_param/bounds = Plane( -2.67708, -2, 2.67708, 2 )
 shader_param/julia_set = Vector2( -0.618034, 0 )
@@ -179,7 +180,7 @@ margin_right = 739.0
 margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-render_material = SubResource( 7 )
+render_material = SubResource( 16 )
 color_gradient = ExtResource( 2 )
 
 [node name="VPanel" type="VBoxContainer" parent="HPanel"]
@@ -213,6 +214,7 @@ custom_constants/side_margin = 0
 tab_align = 0
 
 [node name="Settings" type="VBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -223,16 +225,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Language" type="HBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs/Settings"]
+[node name="Language" parent="HPanel/VPanel/UI/Separator/Tabs/Settings" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_right = 251.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 0, 20 )
-
-[node name="Language" type="Label" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Language"]
-margin_right = 123.0
-margin_bottom = 22.0
-size_flags_horizontal = 3
-text = "LANG"
+label = "LANG"
 
 [node name="LanguageSelect" type="OptionButton" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Language"]
 margin_left = 127.0
@@ -243,19 +241,15 @@ text = "English"
 items = [ "English", null, false, 0, null, "Français", null, false, 1, null ]
 selected = 0
 
-[node name="ColorGradient" type="HBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs/Settings"]
+[node name="Gradient" parent="HPanel/VPanel/UI/Separator/Tabs/Settings" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 26.0
 margin_right = 251.0
 margin_bottom = 48.0
-rect_min_size = Vector2( 0, 20 )
+label = "COLOR_GRADIENT"
 
-[node name="ColorGrad" type="Label" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/ColorGradient"]
-margin_right = 125.0
-margin_bottom = 22.0
-size_flags_horizontal = 3
-text = "COLOR_GRADIENT"
-
-[node name="GradientSelect" type="OptionButton" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/ColorGradient"]
+[node name="GradientSelect" type="OptionButton" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Gradient"]
 margin_left = 129.0
 margin_right = 251.0
 margin_bottom = 22.0
@@ -264,19 +258,15 @@ text = "CLASSIC"
 items = [ "CLASSIC", null, false, 0, null, "PURPLE_GRADIENT", null, false, 1, null, "GRAYSCALE", null, false, 2, null, "BLUE_GRADIENT", null, false, 3, null ]
 selected = 0
 
-[node name="Resolution" type="HBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs/Settings"]
+[node name="UiElement" parent="HPanel/VPanel/UI/Separator/Tabs/Settings" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 52.0
 margin_right = 251.0
 margin_bottom = 74.0
-rect_min_size = Vector2( 0, 20 )
+label = "RESOLUTION"
 
-[node name="Resolution" type="Label" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution"]
-margin_right = 91.0
-margin_bottom = 22.0
-size_flags_horizontal = 3
-text = "RESOLUTION"
-
-[node name="Width" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution"]
+[node name="Width" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/UiElement"]
 margin_left = 95.0
 margin_right = 171.0
 margin_bottom = 22.0
@@ -287,7 +277,7 @@ max_value = 4096.0
 value = 1024.0
 rounded = true
 
-[node name="Height" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution"]
+[node name="Height" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/UiElement"]
 margin_left = 175.0
 margin_right = 251.0
 margin_bottom = 22.0
@@ -311,7 +301,6 @@ __meta__ = {
 }
 
 [node name="Julia" type="VBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -322,22 +311,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Set" type="HBoxContainer" parent="HPanel/VPanel/UI/Separator/Tabs/Julia"]
-margin_right = 218.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 0, 20 )
 
-[node name="Set" type="Label" parent="HPanel/VPanel/UI/Separator/Tabs/Julia/Set"]
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 19.0
 size_flags_horizontal = 3
-text = "JULIA_SET"
+
+[node name="Set" parent="HPanel/VPanel/UI/Separator/Tabs/Julia" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 26.0
+margin_right = 251.0
+margin_bottom = 48.0
+label = "JULIA_SET"
 
 [node name="Real" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Julia/Set"]
-margin_left = 66.0
-margin_right = 140.0
-margin_bottom = 24.0
+margin_left = 95.0
+margin_right = 171.0
+margin_bottom = 22.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.25
 min_value = -2.0
@@ -347,9 +335,9 @@ allow_greater = true
 allow_lesser = true
 
 [node name="Imaginary" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Julia/Set"]
-margin_left = 144.0
-margin_right = 218.0
-margin_bottom = 24.0
+margin_left = 175.0
+margin_right = 251.0
+margin_bottom = 22.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.25
 min_value = -2.0
@@ -397,7 +385,7 @@ margin_right = 257.0
 margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-render_material = SubResource( 13 )
+render_material = SubResource( 18 )
 plane_center = Vector2( 0, 0 )
 plane_min_size = 2.0
 color_gradient = ExtResource( 2 )
@@ -426,9 +414,11 @@ __meta__ = {
 }
 [connection signal="gui_input" from="HPanel/Mandelbrot" to="." method="_on_Mandelbrot_gui_input"]
 [connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Language/LanguageSelect" to="." method="_on_LanguageSelect_item_selected"]
-[connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/ColorGradient/GradientSelect" to="." method="_on_GradientSelect_item_selected"]
-[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution/Width" to="." method="_on_resolution_changed"]
-[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution/Height" to="." method="_on_resolution_changed"]
+[connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Gradient/GradientSelect" to="." method="_on_GradientSelect_item_selected"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Settings/UiElement/Width" to="." method="_on_resolution_changed"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Settings/UiElement/Height" to="." method="_on_resolution_changed"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Center/Real" to="." method="_on_julia_center_value_changed"]
+[connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Center/Imaginary" to="." method="_on_julia_center_value_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Real" to="." method="_on_julia_set_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Set/Imaginary" to="." method="_on_julia_set_changed"]
 [connection signal="pressed" from="HPanel/VPanel/UI/Separator/Footer/Help" to="." method="_on_Help_pressed"]
