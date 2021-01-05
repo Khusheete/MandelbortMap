@@ -258,7 +258,7 @@ text = "CLASSIC"
 items = [ "CLASSIC", null, false, 0, null, "PURPLE_GRADIENT", null, false, 1, null, "GRAYSCALE", null, false, 2, null, "BLUE_GRADIENT", null, false, 3, null ]
 selected = 0
 
-[node name="UiElement" parent="HPanel/VPanel/UI/Separator/Tabs/Settings" instance=ExtResource( 4 )]
+[node name="Resolution" parent="HPanel/VPanel/UI/Separator/Tabs/Settings" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 52.0
@@ -266,7 +266,7 @@ margin_right = 251.0
 margin_bottom = 74.0
 label = "RESOLUTION"
 
-[node name="Width" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/UiElement"]
+[node name="Width" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution"]
 margin_left = 95.0
 margin_right = 171.0
 margin_bottom = 22.0
@@ -277,7 +277,7 @@ max_value = 4096.0
 value = 1024.0
 rounded = true
 
-[node name="Height" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/UiElement"]
+[node name="Height" type="SpinBox" parent="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution"]
 margin_left = 175.0
 margin_right = 251.0
 margin_bottom = 22.0
