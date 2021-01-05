@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/Plot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/gradients/uf.tres" type="Gradient" id=2]
@@ -433,7 +433,6 @@ margin_bottom = 22.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.25
 min_value = -100.0
-max_value = 100.0
 step = 0.001
 allow_greater = true
 allow_lesser = true
@@ -530,19 +529,19 @@ anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="gui_input" from="HPanel/Mandelbrot" to="." method="_on_Mandelbrot_gui_input"]
 
 [node name="FileSelect" type="FileDialog" parent="."]
 margin_right = 552.0
 margin_bottom = 386.0
 theme = ExtResource( 5 )
-window_title = "Save image to file"
+window_title = "SAVE_DIALOG"
 resizable = true
 dialog_hide_on_ok = true
 access = 2
-filters = PoolStringArray( "*.png ; png images" )
+filters = PoolStringArray( "*.png ; PNG_FORMAT" )
 current_dir = "/home/siandfrance/prjs/godot/MandelbrotMap"
 current_path = "/home/siandfrance/prjs/godot/MandelbrotMap/"
+[connection signal="gui_input" from="HPanel/Mandelbrot" to="." method="_on_Mandelbrot_gui_input"]
 [connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Language/LanguageSelect" to="." method="_on_LanguageSelect_item_selected"]
 [connection signal="item_selected" from="HPanel/VPanel/UI/Separator/Tabs/Settings/ColorGradient/GradientSelect" to="." method="_on_GradientSelect_item_selected"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Settings/Resolution/Width" to="." method="_on_resolution_changed"]
@@ -550,6 +549,7 @@ current_path = "/home/siandfrance/prjs/godot/MandelbrotMap/"
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Real" to="." method="_on_mandelbrot_center_value_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Center/Imaginary" to="." method="_on_mandelbrot_center_value_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Zoom/ZoomSelect" to="." method="_on_mandelbrot_zoom_changed"]
+[connection signal="pressed" from="HPanel/VPanel/UI/Separator/Tabs/Mandelbrot/Save/SaveButton" to="." method="_on_save_mandelbrot"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Center/Real" to="." method="_on_julia_center_value_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Center/Imaginary" to="." method="_on_julia_center_value_changed"]
 [connection signal="value_changed" from="HPanel/VPanel/UI/Separator/Tabs/Julia/Zoom/ZoomSelect" to="." method="_on_julia_zoom_changed"]

@@ -219,3 +219,35 @@ func _on_mandelbrot_zoom_changed(value: float):
 
 func _on_julia_zoom_changed(value: float):
 	julia.plane_min_size = value
+
+#save mode
+#true  - save mandelbrot set
+#false - save julia set
+var save_mode: bool = false
+
+func _on_save_julia():
+	$FileSelect.popup_centered()
+	save_mode = false
+
+
+func _on_save_mandelbrot():
+	$FileSelect.popup_centered()
+	save_mode = true
+	
+
+#save image
+func _on_file_selected(path: String):
+	var image: Image
+	if save_mode: #save mandelbrot
+		mandelbrot.generate_image()
+		image = yield(mandelbrot, "image_generated")
+	else:         #save julia
+		julia.generate_image()
+		image = yield(julia, "image_generated")
+	var _err = image.save_png(path)
+
+
+func _on_file_select_about_to_show():
+	$FileSelect.current_dir = "res://"
+	$FileSelect.current_path = ""
+	$FileSelect.filters[0] = "*.png ; %s" % tr("PNG_FORMAT")

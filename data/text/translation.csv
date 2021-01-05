@@ -17,3 +17,6 @@ RESOLUTION	Resolution	Résolution
 MOUSE_POS	Mouse: ({x}; {y})	Sourie: ({x}; {y})
 CENTER	Center	Centre
 MIN_ZOOM	Min side length	Taille min
+SAVE_IMG	Save	Sauvegarder
+SAVE_DIALOG	Save image to	Sauvegarder l’image à
+PNG_FORMAT	png image	image png
