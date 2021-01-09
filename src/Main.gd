@@ -114,14 +114,14 @@ func _on_Julia_gui_input(event):
 		var mpos: Vector2 = julia.transform_pos(get_global_mouse_position())
 		julia.plane_center = julia.plane_center.linear_interpolate(mpos, 0.25)
 		julia.plane_min_size *= 0.9
-		if mandelbrot.plane_min_size < 0.001:
-			mandelbrot.plane_min_size = 0.001
+		if julia.plane_min_size < 0.001:
+			julia.plane_min_size = 0.001
 		update_values()
 	if event.is_action_pressed("scroll_down"):
 		#zoom out
 		julia.plane_min_size *= 1.1
-		if mandelbrot.plane_min_size > 10:
-			mandelbrot.plane_min_size = 10
+		if julia.plane_min_size > 10:
+			julia.plane_min_size = 10
 		update_values()
 	if event is InputEventMouseMotion:
 		#update mouse position text

@@ -31,12 +31,12 @@ void fragment() {
 resource_local_to_scene = true
 gradient = ExtResource( 2 )
 
-[sub_resource type="ViewportTexture" id=15]
+[sub_resource type="ViewportTexture" id=4]
 
 [sub_resource type="ShaderMaterial" id=5]
 resource_local_to_scene = true
 shader = SubResource( 2 )
-shader_param/tex = SubResource( 15 )
+shader_param/tex = SubResource( 4 )
 shader_param/color_gradient = SubResource( 3 )
 
 [sub_resource type="Shader" id=6]
@@ -76,7 +76,7 @@ void fragment() {
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id=16]
+[sub_resource type="ShaderMaterial" id=7]
 shader = SubResource( 6 )
 shader_param/bounds = Plane( -2.41121, -1.5, 1.41121, 1.5 )
 shader_param/max_iter = 100
@@ -88,12 +88,12 @@ bg_color = Color( 0.12549, 0.141176, 0.192157, 1 )
 resource_local_to_scene = true
 gradient = ExtResource( 2 )
 
-[sub_resource type="ViewportTexture" id=17]
+[sub_resource type="ViewportTexture" id=10]
 
 [sub_resource type="ShaderMaterial" id=11]
 resource_local_to_scene = true
 shader = SubResource( 2 )
-shader_param/tex = SubResource( 17 )
+shader_param/tex = SubResource( 10 )
 shader_param/color_gradient = SubResource( 9 )
 
 [sub_resource type="Shader" id=12]
@@ -137,7 +137,7 @@ void fragment() {
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id=18]
+[sub_resource type="ShaderMaterial" id=13]
 shader = SubResource( 12 )
 shader_param/bounds = Plane( -2.67708, -2, 2.67708, 2 )
 shader_param/julia_set = Vector2( -0.618034, 0 )
@@ -181,7 +181,7 @@ margin_right = 739.0
 margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-render_material = SubResource( 16 )
+render_material = SubResource( 7 )
 color_gradient = ExtResource( 2 )
 
 [node name="VPanel" type="VBoxContainer" parent="HPanel"]
@@ -502,7 +502,7 @@ margin_right = 257.0
 margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-render_material = SubResource( 18 )
+render_material = SubResource( 13 )
 plane_center = Vector2( 0, 0 )
 plane_min_size = 2.0
 color_gradient = ExtResource( 2 )
