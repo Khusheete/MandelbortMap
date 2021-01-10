@@ -11,8 +11,13 @@ var state: bool = true
 var hovered_point: Vector2 = Vector2(0, 0)
 
 func _ready():
+	#set language from os locale
 	var os_lang: String = OS.get_locale()
 	TranslationServer.set_locale(os_lang)
+	var language: Array = ["en", "fr"]
+	for i in range(len(language)):
+		if os_lang.find(language[i]) == 0:
+			$HPanel/VPanel/UI/Separator/Tabs/Settings/Language/LanguageSelect.selected = i
 	
 	translate_tabs()
 	
